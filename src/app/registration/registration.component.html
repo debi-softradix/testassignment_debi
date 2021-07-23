@@ -1,0 +1,86 @@
+<form [formGroup]="registration">
+   <div class="maincontainer">
+      <div class="container">
+         <h1>Registration form</h1>
+         <div class="formGroup">
+            <label for="FirstName">FirstName<b>:</b></label>
+            <input type="text" placeholder="FirstName" name="FirstName" id="FirstName" formControlName="FirstName"
+               class="form-control"><br>
+            <span class="text-danger" *ngIf="(submitted && registrationFormControl.FirstName.errors)">
+               FirstName is required
+            </span>
+         </div>
+         <br>
+         <div class="formGroup">
+            <label for="LastName">LastName<b>:</b></label>
+            <input type="text" placeholder="LastName" name="Lastame" id="LastName" formControlName="LastName"
+               class="form-control"><br>
+            <span class="text-danger" *ngIf="(submitted && registrationFormControl.LastName.errors)">
+               LastName is required
+            </span>
+         </div>
+         <br>
+         <div class="formGroup">
+            <label for="email"><b>Email:</b></label>
+            <input type="text" placeholder=" Enter email" name="email" id="email" formControlName="email"
+               class="form-control"><br>
+            <span class="text-danger" *ngIf="(submitted && registrationFormControl.email.errors)">
+               Email is required
+            </span>
+         </div>
+         <br>
+         <div class="formGroup">
+            <label for="password"><b>password:</b></label>
+            <input type="password" placeholder="Enter password" name="password" id="password" formControlName="password"
+               class="form-control" (input)="onBlurPassword()"><br>
+            <span class="text-danger" *ngIf="(submitted && registrationFormControl.password)">
+               <span *ngIf="(submitted && registrationFormControl.password.errors)">
+                  password is required
+               </span>
+            </span>
+            <br>
+            <div class="formGroup">
+               <label for="confirmpassword"><b>confirmpassword:</b></label>
+               <input type="password" placeholder="Confirmpassword" name="confirmpassword" id="confirmpassword"
+                  formControlName="confirmpassword" class="form-control" (input)="onBlurPassword()"><br>
+               <span class="text-denger" *ngIf="(submitted && registrationFormControl.confirmpassword.errors)">
+                  confirm password is required
+               </span>
+               <span *ngIf=isPasswordMatched class="danger">{{passwordErrorMsg}}
+               </span>
+               <br>
+               <div class="formGroup">
+                  <input type="radio" value="1" name="gender" id="male" formControlName="gender"
+                     class="form-control">
+                  <label for="gender">Male</label>
+                  <input type="radio" value="2" id="female" name="gender" formControlName="gender"
+                     class="form-control">
+                  <label for="gender">Female</label><br>
+               </div>
+               <br>
+               <div class="formGroup">
+                  <label for="Rolls">choose user rolls </label>
+                  <select name="rolls" id="rolls" formControlName="rolls" class="form-control">
+                     <option value="0">student</option>
+                     <option value="1">admin</option>
+                     <option value="2">user</option>
+                  </select><br><br>
+               </div>
+               <div class="formGroup" *ngFor="let hobby of hobbies">
+                  <input type="checkbox" [name]="hobby.id" [id]="hobby.id" [value]="hobby.id"
+                     (click)="onCheck(hobby.id)" formControlName="hobbies" class="form-control">
+                     <label for={{hobby.name}}>{{hobby.name}}</label>
+               </div>
+               <!-- <div>
+               <input type = "checkbox"  id ="Singing" value ="0" formControlName ="checkbox" class="form-control">Singing
+               <input type = "checkbox"  id ="Reading"  value ="1" formControlName ="checkbox" class="form-control">Reading
+               <input type = "checkbox"  id ="Drawing"  value ="2" formControlName ="checkbox" class="form-control">Drawing
+               <input type = "checkbox"  id ="photography"  value ="3" formControlName ="checkbox" class="form-control">photography
+            </div> -->
+               <div>
+                  <button type="Submit" (click)="getSubmitData()" class="registrationbutton">Register</button>
+               </div>
+               <div class="container login">
+                  <p>Allready register?<a href="#">Login</a></p>
+               </div>
+               <form>
