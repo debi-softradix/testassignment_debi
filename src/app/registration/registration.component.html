@@ -1,21 +1,21 @@
-<form [formGroup]="registration">
+<form [formGroup]="registration" (ngSubmit)= "onSubmit()">
    <div class="maincontainer">
       <div class="container">
          <h1>Registration form</h1>
          <div class="formGroup">
-            <label for="FirstName">FirstName<b>:</b></label>
-            <input type="text" placeholder="FirstName" name="FirstName" id="FirstName" formControlName="FirstName"
+            <label for="firstname">FirstName<b>:</b></label>
+            <input type="text" placeholder="FirstName" name="firstname" id="firstname" formControlName="firstname"
                class="form-control"><br>
-            <span class="text-danger" *ngIf="(submitted && registrationFormControl.FirstName.errors)">
+            <span class="text-danger" *ngIf="(submitted && registrationFormControl.firstname.errors)">
                FirstName is required
             </span>
          </div>
          <br>
          <div class="formGroup">
-            <label for="LastName">LastName<b>:</b></label>
-            <input type="text" placeholder="LastName" name="Lastame" id="LastName" formControlName="LastName"
+            <label for="lastname">LastName<b>:</b></label>
+            <input type="text" placeholder="LastName" name="lastname" id="lastname" formControlName="lastname"
                class="form-control"><br>
-            <span class="text-danger" *ngIf="(submitted && registrationFormControl.LastName.errors)">
+            <span class="text-danger" *ngIf="(submitted && registrationFormControl.lastname.errors)">
                LastName is required
             </span>
          </div>
