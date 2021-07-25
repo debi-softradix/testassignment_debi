@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { RegistrationService } from '../registration.service';
+
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -11,12 +13,13 @@ export class RegistrationComponent implements OnInit {
   id!: number;
   checkedHobbies: any = []
   array= [];
+  registrationData: any
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private _registrationService:RegistrationService) { }
 
   registration = new FormGroup({
-    FirstName: new FormControl('', Validators.required),
-    LastName: new FormControl('', Validators.required),
+    firstname: new FormControl('', Validators.required),
+    lastname: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
     confirmpassword: new FormControl('', Validators.required),
@@ -63,13 +66,29 @@ export class RegistrationComponent implements OnInit {
       if (this.registration.valid) {
         alert('Form submitted succesfully!!!\n check the value in browser console.')
         console.log(this.registration.value);
-        // console.log(this.onCheck(this.id));
-        // console.log(this.checkedHobbies[this.id])
-        
 
-        
+
+        this.registrationData = this.registration.value;
+        this.registrationData["hobbies"] = this.checkedHobbies;
+        delete this.registrationData["confirmpassword"]
+        console.log("registration data is" ,this.registrationData)
+        // console.log(this.onCheck(this.id));
+        // console.log(this.checkedHobbies[this.id])   
     
    }
+
+  
+  }
+  onSubmit(){
+    console.log(this.registration.value);
+    this._registrationService.register(this.registrationData)
+    .subscribe(
+      Response => console.log('Success!',Response),
+    error => console.error('error',error)
+    );
+      
+    // console.log("name is",this.registrationData["FirstName"]);  
+    
   }
 }
 
