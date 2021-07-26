@@ -9,13 +9,15 @@ import { RegistrationService } from '../registration.service';
 })
 export class RegistrationComponent implements OnInit {
 
-  hobbies = [{ id: 1, name: "singing" }, { id: 2, name: "reading" }, { id: 3, name: "dancing" }, { id: 4, name: "photography" }];
+  hobbies = [{ id: 1, name: "Singing" }, { id: 2, name: "Reading" }, { id: 3, name: "Dancing" }, { id: 4, name: "Photography" }];
   id!: number;
   checkedHobbies: any = []
   array= [];
-  registrationData: any
-
-  constructor(private fb: FormBuilder, private _registrationService:RegistrationService) { }
+  registrationData: any;
+  data:any;
+  constructor(private fb: FormBuilder, private _registrationService:RegistrationService) {
+    
+   }
 
   registration = new FormGroup({
     firstname: new FormControl('', Validators.required),
@@ -88,8 +90,14 @@ export class RegistrationComponent implements OnInit {
     );
       
     // console.log("name is",this.registrationData["FirstName"]);  
-    
-  }
+  
+  
+  this.registrationData.getData().subscribe(this.data);{
+    console.log(this.data);
+  };
+
 }
+}
+
 
 
