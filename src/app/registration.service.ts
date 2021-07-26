@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
+
 export class RegistrationService {
 
   _url ='http://localhost:3000/users/';
@@ -17,8 +16,8 @@ export class RegistrationService {
      
   }
   
-  // getData(){
-  //   let url="https://localhost:3000/users/:id";
-  //   return this._http.get(url);
-  // }
+  getData(){
+    let url="https://localhost:3000/users/:id";
+    return this._http.get(url);
+  }
 }

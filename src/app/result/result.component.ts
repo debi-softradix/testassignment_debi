@@ -1,4 +1,6 @@
+import { convertPropertyBinding } from '@angular/compiler/src/compiler_util/expression_converter';
 import { Component, OnInit } from '@angular/core';
+import { ResultService } from '../result.service'
 
 @Component({
   selector: 'app-result',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResultComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _resultService:ResultService) { }
 
   ngOnInit(): void {
-  }
+this._resultService.getData().subscribe(data=>{
+ console.log("get api data",data)
+  
+})
 
+}
 }
