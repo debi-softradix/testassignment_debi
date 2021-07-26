@@ -17,8 +17,8 @@ export class RegistrationService {
      
   }
   
-  getData(){
-    let url="https://localhost:3000/users/:id";
-    return this._http.get(url);
-  }
+  // getData(){
+  //   let url="https://localhost:3000/users/:id";
+  //   return this._http.get(url);
+  // }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Output,EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { RegistrationService } from '../registration.service';
 
@@ -9,6 +9,9 @@ import { RegistrationService } from '../registration.service';
 })
 export class RegistrationComponent implements OnInit {
 
+  @Output() parentFunction:EventEmitter<any>= new EventEmitter()
+
+ 
   hobbies = [{ id: 1, name: "Singing" }, { id: 2, name: "Reading" }, { id: 3, name: "Dancing" }, { id: 4, name: "Photography" }];
   id!: number;
   checkedHobbies: any = []
@@ -17,6 +20,9 @@ export class RegistrationComponent implements OnInit {
   data:any;
   constructor(private fb: FormBuilder, private _registrationService:RegistrationService) {
     
+   }
+   ngOnInIt():void{
+    this.parentFunction.emit("registration");
    }
 
   registration = new FormGroup({
@@ -43,7 +49,7 @@ export class RegistrationComponent implements OnInit {
     this.passwordErrorMsg = "Password and confirm password did not match";
     if (this.registration.value.password !== this.registration.value.confirmpassword) {
       this.isPasswordMatched = true;
-      // console.log('Password and confirm password did not match.');
+      console.log('Password and confirm password did not match.');
     } else {
       this.isPasswordMatched = false;
     }
@@ -58,15 +64,20 @@ export class RegistrationComponent implements OnInit {
     else {
       var index = this.checkedHobbies.indexOf(id);
       console.log(this.checkedHobbies);
-      // if (index > -1) {
-      //   this.checkedHobbies.splice(index,1);
-      // }
+      if (index > -1) {
+        this.checkedHobbies.splice(index,1);
+      }
     }
     }
     getSubmitData() {
       this.submitted = true;
       if (this.registration.valid) {
-        alert('Form submitted succesfully!!!\n check the value in browser console.')
+        // alert('Form submitted succesfully!!!\n check the value in browser console.')
+        if (window.confirm('Form submitted succesfully!!!')) 
+        {
+        window.location.href='https://localhost:3000/users/:id';
+        };
+        
         console.log(this.registration.value);
 
 
@@ -74,11 +85,9 @@ export class RegistrationComponent implements OnInit {
         this.registrationData["hobbies"] = this.checkedHobbies;
         delete this.registrationData["confirmpassword"]
         console.log("registration data is" ,this.registrationData)
-        // console.log(this.onCheck(this.id));
-        // console.log(this.checkedHobbies[this.id])   
-    
+        console.log(this.onCheck(this.id));
+        console.log(this.checkedHobbies[this.id])   
    }
-
   
   }
   onSubmit(){
@@ -91,11 +100,9 @@ export class RegistrationComponent implements OnInit {
       
     // console.log("name is",this.registrationData["FirstName"]);  
   
-  
   this.registrationData.getData().subscribe(this.data);{
-    console.log(this.data);
+    console.log("get",this.data);
   };
-
 }
 }
 
