@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { RegistrationService } from '../registration.service';
 import { Router } from '@angular/router'
@@ -10,8 +10,7 @@ import { Router } from '@angular/router'
 })
 export class RegistrationComponent implements OnInit {
 
-  @Output() parentFunction: EventEmitter<any> = new EventEmitter()
-
+  
 
   hobbies = [{ id: 1, name: "Singing" }, { id: 2, name: "Reading" }, { id: 3, name: "Dancing" }, { id: 4, name: "Photography" }];
   id!: number;
@@ -23,7 +22,7 @@ export class RegistrationComponent implements OnInit {
 
   }
   ngOnInIt(): void {
-    this.parentFunction.emit("registration");
+   
   }
 
   registration = new FormGroup({
@@ -78,8 +77,6 @@ export class RegistrationComponent implements OnInit {
 
       console.log(this.registration.value);
       console.log("hobbies are", this.checkedHobbies);
-
-
       this.registrationData = this.registration.value;
       this.registrationData["hobbies"] = this.checkedHobbies;
       delete this.registrationData["confirmpassword"]

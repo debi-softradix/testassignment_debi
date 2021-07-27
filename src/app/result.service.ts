@@ -9,7 +9,13 @@ export class ResultService {
   constructor(private _http:HttpClient ) { }
   
   getData(){
-    let url="https://localhost:3000/users/:id";
+    let url="https://jsonplaceholder.typicode.com/posts";
     return this._http.get(url);
   }
+  _url = 'https://jsonplaceholder.typicode.com/posts';
+  register(userData:any){
+     return this._http.post<any>(this._url,userData);
+
+}
+
 }
