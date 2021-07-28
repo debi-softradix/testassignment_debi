@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ResultService } from '../result.service'
-import { HttpClient } from '@angular/common/http';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { ResultserviceService} from '../resultservice.service'
 
 @Component({
   selector: 'app-result',
@@ -9,33 +7,19 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
   styleUrls: ['./result.component.css']
 })
 export class ResultComponent implements OnInit {
-  detail: any;
-  updatedBody:any;
-  userId:any;
-  constructor(private _resultService: ResultService, private _http: HttpClient ) {
-    this.dataShow();
-    this.userData();
-    this.updateData();
-    
-   }
-
-  ngOnInit(): void {
-  }
   
-  dataShow() {
-    this._resultService.getData().subscribe(data => {
-      this.detail = data;
-      console.log("get api data", data)
-    })
+  constructor( private resultService:ResultserviceService) {
+
+    this.resultService.getUsers().subscribe(
+      data => {
+        console.log('success!',data)
+      }
+    )
   }
-  userData(){}
-  _url = 'https://jsonplaceholder.typicode.com/posts';
-  register(userData:any){
-     return this._http.post<any>(this._url,userData); 
-  } 
-   updateData(){
-     const URL ='https://jsonplaceholder.typicode.com/posts'
-     return this._http.put(URL,this.userId.push(this.userId));
-   }
+
+  ngOnInit() {
+    
   }
+
+}
 
