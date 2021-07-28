@@ -18,10 +18,10 @@ export class RegistrationComponent implements OnInit {
   registrationData: any;
   data: any;
 
-  constructor(private fb: FormBuilder,  private router: Router,private _resultService:ResultserviceService) {
+  constructor(private fb: FormBuilder, private router: Router, private _resultService: ResultserviceService) {
   }
   ngOnInIt(): void {
-   
+
   }
   registration = new FormGroup({
     firstname: new FormControl('', Validators.required),
@@ -68,7 +68,7 @@ export class RegistrationComponent implements OnInit {
     this.submitted = true;
     if (this.registration.valid) {
       alert('Form submitted succesfully!!!\n check the value in browser console.')
-     
+
 
       console.log(this.registration.value);
       console.log("hobbies are", this.checkedHobbies);
@@ -76,22 +76,35 @@ export class RegistrationComponent implements OnInit {
       this.registrationData["hobbies"] = this.checkedHobbies;
       delete this.registrationData["confirmpassword"]
       console.log("registration data is", this.registrationData)
-      console.log(this.checkedHobbies[this.id])
+      // console.log(this.checkedHobbies[this.id])
     }
 
   }
   onSubmit() {
     console.log(this.registrationData);
     this._resultService.registerUser(this.registrationData)
-    .subscribe(
-      Response =>{
-        console.log('success!',Response)
-        this.router.navigate(['/Result'])
-      },
-      error =>{
-        console.error('error',error)
-      }
-    );
+      .subscribe(
+        response => {
+          console.log('success!', Response)
+          let resultData = response;
+          if (resultData["status"] == 1) {
+            console.log("resultData", resultData)
+            if (resultData["data"]) {
+              let data = resultData["data"];
+              let userId = data["id"];
+              console.log(userId);
+
+
+            }
+          }
+
+
+          // this.router.navigate(['/Result'])
+        },
+        error => {
+          console.error('error', error)
+        }
+      );
   }
 }
 
