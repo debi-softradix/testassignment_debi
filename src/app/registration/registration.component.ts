@@ -53,7 +53,7 @@ export class RegistrationComponent implements OnInit {
     }
   }
   onCheck(id: number) {
-debugger
+
     if (!this.checkedHobbies.includes(id)) {
       this.checkedHobbies.push(id);
     }
